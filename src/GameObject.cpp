@@ -18,3 +18,7 @@ void GameObject::setVelocity(const sf::Vector2f& velocity) {
   this->velocity=velocity;
   std::cout << "Velocity set to: " << this->velocity.x << ", " << this->velocity.y << std::endl;
 }
+
+sf::Vector2f* GameObject::getPosition(){
+  return &this->position;
+}

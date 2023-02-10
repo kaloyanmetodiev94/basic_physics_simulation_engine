@@ -1,6 +1,9 @@
 #ifndef GAME_OBJECT_HPP
 #define GAME_OBJECT_HPP
 
+
+#define SCREEN_X 1024
+#define SCREEN_Y 768
 #include <SFML/Graphics.hpp>
 
 class GameObject {
@@ -12,7 +15,7 @@ public:
   virtual void update();
   virtual void draw(sf::RenderWindow& window);
   virtual void setVelocity(const sf::Vector2f& position);
-
+  virtual sf::Vector2f* getPosition();
   sf::Vector2f position;
   sf::Vector2f velocity;
 

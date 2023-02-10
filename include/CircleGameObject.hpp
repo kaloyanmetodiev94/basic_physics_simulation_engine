@@ -9,6 +9,7 @@ public:
     CircleGameObject(const sf::Vector2f& position, float radius, const sf::Color& color);
     virtual void update();
     virtual void draw(sf::RenderWindow& window);
+    float getRadius();
 
 private:
     float radius;
