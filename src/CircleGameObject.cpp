@@ -1,5 +1,4 @@
 #include "CircleGameObject.hpp"
-#include "iostream"
 
 CircleGameObject::CircleGameObject(const sf::Vector2f& position, float radius, const sf::Color& color)
     : GameObject(position), radius(radius), color(color) {

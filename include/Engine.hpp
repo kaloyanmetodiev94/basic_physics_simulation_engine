@@ -6,6 +6,10 @@
 #include "CircleGameObject.hpp"
 #include <SFML/Graphics.hpp>
 
+
+
+#define _USE_MATH_DEFINES
+
 class Engine {
 public:
   Engine();
@@ -18,9 +22,9 @@ public:
   void addGameObject(GameObject* gameObject);
   bool isRunning() const; //we shouldn't be able to kill alter the engine state from inside isRunning() in code --> make it const
 
+  void handleCollision(CircleGameObject* ,CircleGameObject*);
   void update(float deltaTime);
   void draw(sf::RenderWindow& window);
-
 
 private:
     sf::RenderWindow window;
