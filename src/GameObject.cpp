@@ -44,20 +44,3 @@ float getCosineBetweenVectors(sf::Vector2f* v1, sf::Vector2f* v2){
 float dotProduct(sf::Vector2f* v1, sf::Vector2f* v2){
     return v1->x*v2->x+v1->y*v2->y;
 }
-
-sf::Vector2f operatorFunction( sf::Vector2f* v1,  sf::Vector2f* v2, char op) {
-    sf::Vector2f result;
-
-    switch (op) {
-        case '+':
-            result = sf::Vector2f(v1->x+v2->x, v1->y+v2->y);
-            break;
-        case '-':
-            result = sf::Vector2f(v2->x-v1->x, v2->y-v1->y);
-            break;
-        default:
-            result = sf::Vector2f(0.f, 0.f);
-    }
-
-    return result;
-}
