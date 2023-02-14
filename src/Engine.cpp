@@ -38,7 +38,7 @@ void Engine::update() {
                 float radius1 = circle1->getRadius();
                 float radius2 = circle2->getRadius();
                 if (distance <= radius1 + radius2) {
-                    handleCollision(circle1,circle2);
+                    handleCollision(circle1,circle2,distance);
                 }
             }
         }
@@ -67,31 +67,26 @@ void Engine::draw(sf::RenderWindow& window) {
   }
 }
 
-void Engine::handleCollision(CircleGameObject* circle1, CircleGameObject* circle2) {
+void Engine::handleCollision(CircleGameObject* circle1, CircleGameObject* circle2, float distance) {
     sf::Vector2f* position1 = circle1->getPosition();
     sf::Vector2f* position2 = circle2->getPosition();
     sf::Vector2f* velocity1 = circle1->getVelocity();
     sf::Vector2f* velocity2 = circle2->getVelocity();
 
-    float radius1 = circle1->getRadius();
-    float radius2 = circle2->getRadius();
-
-    // Get angle between the two centres of circles relative to the whole frame
-    float angle = atan2(position2->y - position1->y, position2->x - position1->x); //atan2 should always give <Pi radians
-
-    float distance = sqrt(pow(position2->x - position1->x, 2) + pow(position2->y - position1->y, 2));
-    float u1 = getVectorLength(velocity1);
-    float u2 = getVectorLength(velocity2);
+    // Get the unit vector along the line between the centres where the circles hit
+    sf::Vector2f distance_unit_vector((position2->x - position1->x)/distance,(position2->y - position1->y)/distance);
     
-    //Calculating the component of the velocity that is directed towards the centers of the two circles.
-    //These need to be reflected and added to the other vectors
-    sf::Vector2f velocityDifference1((position2->x - position1->x)*u1/distance,(position2->y - position1->y)*u1/distance);
-    sf::Vector2f velocityDifference2(-(position2->x - position1->x)*u2/distance,-(position2->y - position1->y)*u2/distance); 
+    // Get the dot products. i.e. the length of the vector along that unit vector for each velocity
+    float u1_diff = dotProduct(&distance_unit_vector,velocity1);
+    float u2_diff = dotProduct(&distance_unit_vector,velocity2);
 
+    // Calculate the difference one needs to make to the vector in order to reflect it along the distance_unit_vector
+    sf::Vector2f velocityDifference1 = distance_unit_vector*u1_diff*2.0f;
+    sf::Vector2f velocityDifference2 = distance_unit_vector*u2_diff*2.0f;
 
-    //Calculate the new velocity as new_velocity_vector=old_velocity_vector - 2*reflect_component
-    sf::Vector2f newVelocity1(velocity1->x-2*velocityDifference1.x,velocity1->y-2*velocityDifference1.y);
-    sf::Vector2f newVelocity2(velocity2->x-2*velocityDifference2.x,velocity2->y-2*velocityDifference2.y);
+    // Subtract the difference v_new = v_old - (v_old . n)n
+    sf::Vector2f newVelocity1 = operatorFunction(&velocityDifference1,velocity1,'-');
+    sf::Vector2f newVelocity2 = operatorFunction(&velocityDifference2,velocity2,'-');
 
     // Update the velocity of the two circles
     circle1->setVelocity(newVelocity1);

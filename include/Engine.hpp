@@ -22,7 +22,7 @@ public:
   void addGameObject(GameObject* gameObject);
   bool isRunning() const; //we shouldn't be able to kill alter the engine state from inside isRunning() in code --> make it const
 
-  void handleCollision(CircleGameObject* ,CircleGameObject*);
+  void handleCollision(CircleGameObject* ,CircleGameObject*, float distance);
   void update(float deltaTime);
   void draw(sf::RenderWindow& window);
 
