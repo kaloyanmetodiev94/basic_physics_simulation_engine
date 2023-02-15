@@ -87,8 +87,6 @@ void Engine::handleCollision(CircleGameObject* circle1, CircleGameObject* circle
     // Subtract the difference v_new = v_old - (v_old . n)n
     sf::Vector2f newVelocity1 = *velocity1 - velocityDifference1;
     sf::Vector2f newVelocity2 = *velocity2 - velocityDifference2;
-    //sf::Vector2f newVelocity1 = operatorFunction(&velocityDifference1,velocity1,'-');
-    //sf::Vector2f newVelocity2 = operatorFunction(&velocityDifference2,velocity2,'-');
 
     // Update the velocity of the two circles
     circle1->setVelocity(newVelocity1);

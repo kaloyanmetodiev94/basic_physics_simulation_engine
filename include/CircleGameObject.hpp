@@ -10,9 +10,12 @@ public:
     virtual void update();
     virtual void draw(sf::RenderWindow& window);
     float getRadius();
+    float getMass();
+    void applyForce(sf::Vector2f* force);
 
 private:
     float radius;
+    float mass;
     sf::Color color;
     sf::CircleShape shape;
 };

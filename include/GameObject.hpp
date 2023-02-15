@@ -16,7 +16,7 @@ public:
 
   virtual void update();
   virtual void draw(sf::RenderWindow& window);
-  virtual void setVelocity(const sf::Vector2f& position);
+  virtual void setVelocity(const sf::Vector2f& position,bool verbose = true);
   virtual sf::Vector2f* getPosition();
   virtual sf::Vector2f* getVelocity();
   sf::Vector2f position;

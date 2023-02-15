@@ -7,6 +7,7 @@ CircleGameObject::CircleGameObject(const sf::Vector2f& position, float radius, c
     shape.setPosition(position);
     shape.setFillColor(color);
     std::cout << "Circle initial position: " << position.x << ", " << position.y << std::endl;
+    mass=pow(radius,2);//assume that in constant 2D density the total mass is ~ r^2
 }
 
 void CircleGameObject::update() {
@@ -27,6 +28,14 @@ void CircleGameObject::draw(sf::RenderWindow& window) {
     window.draw(shape);
 }
 
+void CircleGameObject::applyForce( sf::Vector2f* force) {
+  this->setVelocity(*this->getVelocity() + *(force) / this->getMass(),false);
+}
+
 float CircleGameObject::getRadius(){
     return radius;
+}
+
+float CircleGameObject::getMass(){ 
+    return mass;
 }
