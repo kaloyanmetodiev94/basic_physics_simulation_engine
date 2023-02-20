@@ -1,25 +1,32 @@
-name: CI
+name: CMake CI
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        build-type: [ Release ]
+
     steps:
     - uses: actions/checkout@v2
 
     - name: Set up CMake
-      with:
-        cmake-root: .
-        cmake-args: |
-          -DBUILD_TESTS=ON
+      uses: jacobmarshall/setup-cmake@v1
 
-    - name: Build and run tests
+    - name: Build
       run: |
-        cmake --build . --config Release
-        ctest --output-on-failure
+        mkdir -p build
+        cd build
+        cmake -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DBUILD_TESTS=ON ../
+        cmake --build .
 
+    - name: Run tests
+      run: |
+        cd build
+        ctest -C ${{ matrix.build-type }} --output-on-failure
