@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up CMake
+      with:
+        cmake-root: .
+        cmake-args: |
+          -DBUILD_TESTS=ON
+
+    - name: Build and run tests
+      run: |
+        cmake --build . --config Release
+        ctest --output-on-failure
+

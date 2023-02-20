@@ -11,7 +11,7 @@ public:
     virtual void draw(sf::RenderWindow& window);
     float getRadius();
     float getMass();
-    void applyForce(sf::Vector2f* force);
+    void applyForce(const sf::Vector2f& force);
 
 private:
     float radius;

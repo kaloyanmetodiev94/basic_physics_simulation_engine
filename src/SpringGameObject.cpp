@@ -25,6 +25,6 @@ void SpringGameObject::update()
     sf::Vector2f norm = diff / length;
     norm *= springConstant * (length - restLength);
     sf::Vector2f norm_neg = -norm;
-    m_circle1->applyForce(&norm_neg);
-    m_circle2->applyForce(&norm);
+    m_circle1->applyForce(norm_neg);
+    m_circle2->applyForce(norm);
 }

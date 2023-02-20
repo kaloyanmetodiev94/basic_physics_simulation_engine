@@ -28,8 +28,8 @@ void CircleGameObject::draw(sf::RenderWindow& window) {
     window.draw(shape);
 }
 
-void CircleGameObject::applyForce( sf::Vector2f* force) {
-  this->setVelocity(*this->getVelocity() + *(force) / this->getMass(),false);
+void CircleGameObject::applyForce( const sf::Vector2f& force) {
+  this->setVelocity(*this->getVelocity() + force / this->getMass(),false);
 }
 
 float CircleGameObject::getRadius(){
